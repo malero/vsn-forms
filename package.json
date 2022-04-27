@@ -1,0 +1,47 @@
+{
+  "name": "vsn-forms",
+  "version": "0.1.0",
+  "description": "Forms for VSN",
+  "keywords": [
+    "framework",
+    "forms",
+    "typescript"
+  ],
+  "main": "./dist/vsn-forms.js",
+  "scripts": {
+    "build": "rm -rf ./dist/ && tsc",
+    "build_dev": "rm -rf ./dist/ && webpack --env BUILD=development BENCHMARK=1",
+    "clean": "rm -rf ./dist/",
+    "test": "karma start --single-run",
+    "posttest": "codecov"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "vsn": "^0.1.35"
+  },
+  "devDependencies": {
+    "@types/jasmine": "^3.6.10",
+    "codecov": "^3.8.1",
+    "jasmine": "^3.7.0",
+    "karma": "^6.3.2",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-coverage": "^2.0.3",
+    "karma-jasmine": "^4.0.1",
+    "karma-typescript": "^5.5.1",
+    "ts-loader": "^9.1.1",
+    "typescript": "^4.2.4"
+  },
+  "homepage": "https://www.vsnjs.com",
+  "git": "https://github.com/malero/vsn-forms",
+  "typings": "./dist/vsn-forms.d.ts",
+  "types": "./dist/vsn-forms.d.ts",
+  "author": "Malero <contact@vsnjs.com> (https://www.vsnjs.com/)",
+  "bugs": {
+    "url": "https://github.com/malero/vsn-forms/issues",
+    "email": "contact@vsnjs.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/malero/vsn-forms.git"
+  }
+}
