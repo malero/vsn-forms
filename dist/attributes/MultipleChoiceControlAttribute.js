@@ -57,33 +57,38 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RadioControlAttribute = void 0;
+exports.MultipleChoiceControlAttribute = void 0;
 var vsn_1 = require("vsn");
 var BaseFormControlAttribute_1 = require("./BaseFormControlAttribute");
-var RadioControlAttribute = /** @class */ (function (_super) {
-    __extends(RadioControlAttribute, _super);
-    function RadioControlAttribute() {
+var MultipleChoiceControlAttribute = /** @class */ (function (_super) {
+    __extends(MultipleChoiceControlAttribute, _super);
+    function MultipleChoiceControlAttribute() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    RadioControlAttribute.prototype.extract = function () {
+    MultipleChoiceControlAttribute.prototype.extract = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var prop;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (!this.tag.checked) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.handleEvent(null)];
+                        if (!this.formScope.has(this.key)) {
+                            prop = this.formScope['data'].createProperty(this.key, vsn_1.ArrayProperty);
+                            prop.value.setLength(0);
+                        }
+                        return [4 /*yield*/, _super.prototype.extract.call(this)];
                     case 1:
                         _a.sent();
-                        _a.label = 2;
-                    case 2: return [4 /*yield*/, _super.prototype.extract.call(this)];
-                    case 3:
+                        if (!this.tag.checked) return [3 /*break*/, 3];
+                        return [4 /*yield*/, this.handleEvent(null)];
+                    case 2:
                         _a.sent();
-                        return [2 /*return*/];
+                        _a.label = 3;
+                    case 3: return [2 /*return*/];
                 }
             });
         });
     };
-    RadioControlAttribute.prototype.connect = function () {
+    MultipleChoiceControlAttribute.prototype.connect = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -100,7 +105,7 @@ var RadioControlAttribute = /** @class */ (function (_super) {
             });
         });
     };
-    RadioControlAttribute.prototype.evaluate = function () {
+    MultipleChoiceControlAttribute.prototype.evaluate = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -115,29 +120,37 @@ var RadioControlAttribute = /** @class */ (function (_super) {
             });
         });
     };
-    RadioControlAttribute.prototype.handleEvent = function (e) {
+    MultipleChoiceControlAttribute.prototype.handleEvent = function (e) {
         return __awaiter(this, void 0, void 0, function () {
+            var values;
             return __generator(this, function (_a) {
-                this.formScope.set(this.key, this.value);
+                values = this.formScope.get(this.key);
+                if (values && this.tag.value !== undefined) {
+                    if (this.tag.checked) {
+                        values.push(this.value);
+                    }
+                    else {
+                        values.remove(this.value);
+                    }
+                }
                 return [2 /*return*/];
             });
         });
     };
-    RadioControlAttribute.prototype.checkSelected = function () {
+    MultipleChoiceControlAttribute.prototype.checkSelected = function () {
         return __awaiter(this, void 0, void 0, function () {
             var scopeValue;
             return __generator(this, function (_a) {
                 scopeValue = this.formScope.get(this.key);
-                console.log('checked', scopeValue, this.value, scopeValue === this.value);
-                this.tag.checked = scopeValue === this.value;
+                this.tag.checked = scopeValue.indexOf(this.value) >= 0;
                 return [2 /*return*/];
             });
         });
     };
-    RadioControlAttribute = __decorate([
-        vsn_1.Registry.attribute('vsn-radio-control')
-    ], RadioControlAttribute);
-    return RadioControlAttribute;
+    MultipleChoiceControlAttribute = __decorate([
+        vsn_1.Registry.attribute('vsn-checkbox-control')
+    ], MultipleChoiceControlAttribute);
+    return MultipleChoiceControlAttribute;
 }(BaseFormControlAttribute_1.FormControlAttributeAbstract));
-exports.RadioControlAttribute = RadioControlAttribute;
-//# sourceMappingURL=RadioControlAttribute.js.map
+exports.MultipleChoiceControlAttribute = MultipleChoiceControlAttribute;
+//# sourceMappingURL=MultipleChoiceControlAttribute.js.map

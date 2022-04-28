@@ -70,4 +70,27 @@ describe('FormControlAttribute', () => {
 
         await deferred.promise;
     });
+
+    it("should work with select", async () => {
+        document.body.innerHTML = `
+            <form id="select-form" vsn-form:form>
+                <select id="select-1" vsn-set:form.test="1|integer" name="test" vsn-form-control>
+                    <option value="1">Testing 1</option>
+                    <option value="2">Testing 2</option>
+                </select>
+            </form>
+        `;
+        const dom = new DOM(document);
+        const deferred = SimplePromise.defer();
+        dom.once('built', async () => {
+            const form = await dom.eval('form');
+            const formData = form.getData();
+            console.log(formData);
+            expect(formData?.test).toBe(1);
+
+            deferred.resolve();
+        });
+
+        await deferred.promise;
+    });
 });

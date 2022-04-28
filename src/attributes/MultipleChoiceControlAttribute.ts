@@ -3,7 +3,7 @@ import {FormControlAttributeAbstract} from "./BaseFormControlAttribute";
 
 
 @Registry.attribute('vsn-checkbox-control')
-export class CheckboxControlAttribute extends FormControlAttributeAbstract {
+export class MultipleChoiceControlAttribute extends FormControlAttributeAbstract {
     public async extract() {
         if (!this.formScope.has(this.key)) {
             const prop = this.formScope['data'].createProperty(this.key, ArrayProperty);

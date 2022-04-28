@@ -1,5 +1,5 @@
 import { FormControlAttributeAbstract } from "./BaseFormControlAttribute";
-export declare class CheckboxControlAttribute extends FormControlAttributeAbstract {
+export declare class MultipleChoiceControlAttribute extends FormControlAttributeAbstract {
     extract(): Promise<void>;
     connect(): Promise<void>;
     evaluate(): Promise<void>;

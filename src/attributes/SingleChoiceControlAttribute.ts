@@ -3,7 +3,7 @@ import {FormControlAttributeAbstract} from "./BaseFormControlAttribute";
 
 
 @Registry.attribute('vsn-radio-control')
-export class RadioControlAttribute extends FormControlAttributeAbstract {
+export class SingleChoiceControlAttribute extends FormControlAttributeAbstract {
     public async extract() {
         if (this.tag.checked)
             await this.handleEvent(null);
