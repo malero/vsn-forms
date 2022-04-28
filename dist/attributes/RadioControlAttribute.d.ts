@@ -1,5 +1,5 @@
 import { FormControlAttributeAbstract } from "./BaseFormControlAttribute";
-export declare class SingleChoiceControlAttribute extends FormControlAttributeAbstract {
+export declare class RadioControlAttribute extends FormControlAttributeAbstract {
     extract(): Promise<void>;
     connect(): Promise<void>;
     evaluate(): Promise<void>;

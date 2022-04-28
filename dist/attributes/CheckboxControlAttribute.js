@@ -57,38 +57,32 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MultipleChoiceControlAttribute = void 0;
+exports.CheckboxControlAttribute = void 0;
 var vsn_1 = require("vsn");
 var BaseFormControlAttribute_1 = require("./BaseFormControlAttribute");
-var MultipleChoiceControlAttribute = /** @class */ (function (_super) {
-    __extends(MultipleChoiceControlAttribute, _super);
-    function MultipleChoiceControlAttribute() {
+var CheckboxControlAttribute = /** @class */ (function (_super) {
+    __extends(CheckboxControlAttribute, _super);
+    function CheckboxControlAttribute() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    MultipleChoiceControlAttribute.prototype.extract = function () {
+    CheckboxControlAttribute.prototype.extract = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var prop;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (!this.formScope.has(this.key)) {
-                            prop = this.formScope['data'].createProperty(this.key, vsn_1.ArrayProperty);
-                            prop.value.setLength(0);
-                        }
+                        this.ensureProperty(vsn_1.ArrayProperty);
                         return [4 /*yield*/, _super.prototype.extract.call(this)];
                     case 1:
                         _a.sent();
-                        if (!this.tag.checked) return [3 /*break*/, 3];
                         return [4 /*yield*/, this.handleEvent(null)];
                     case 2:
                         _a.sent();
-                        _a.label = 3;
-                    case 3: return [2 /*return*/];
+                        return [2 /*return*/];
                 }
             });
         });
     };
-    MultipleChoiceControlAttribute.prototype.connect = function () {
+    CheckboxControlAttribute.prototype.connect = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -105,7 +99,7 @@ var MultipleChoiceControlAttribute = /** @class */ (function (_super) {
             });
         });
     };
-    MultipleChoiceControlAttribute.prototype.evaluate = function () {
+    CheckboxControlAttribute.prototype.evaluate = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -120,37 +114,41 @@ var MultipleChoiceControlAttribute = /** @class */ (function (_super) {
             });
         });
     };
-    MultipleChoiceControlAttribute.prototype.handleEvent = function (e) {
+    CheckboxControlAttribute.prototype.handleEvent = function (e) {
         return __awaiter(this, void 0, void 0, function () {
             var values;
             return __generator(this, function (_a) {
                 values = this.formScope.get(this.key);
                 if (values && this.tag.value !== undefined) {
                     if (this.tag.checked) {
+                        console.log('checked', this.tag.value);
                         values.push(this.value);
                     }
                     else {
+                        console.log('unchecked', this.tag.value);
                         values.remove(this.value);
                     }
                 }
+                console.log(values);
                 return [2 /*return*/];
             });
         });
     };
-    MultipleChoiceControlAttribute.prototype.checkSelected = function () {
+    CheckboxControlAttribute.prototype.checkSelected = function () {
         return __awaiter(this, void 0, void 0, function () {
             var scopeValue;
             return __generator(this, function (_a) {
                 scopeValue = this.formScope.get(this.key);
+                console.log('checkSelected', scopeValue, this.value);
                 this.tag.checked = scopeValue.indexOf(this.value) >= 0;
                 return [2 /*return*/];
             });
         });
     };
-    MultipleChoiceControlAttribute = __decorate([
+    CheckboxControlAttribute = __decorate([
         vsn_1.Registry.attribute('vsn-checkbox-control')
-    ], MultipleChoiceControlAttribute);
-    return MultipleChoiceControlAttribute;
+    ], CheckboxControlAttribute);
+    return CheckboxControlAttribute;
 }(BaseFormControlAttribute_1.FormControlAttributeAbstract));
-exports.MultipleChoiceControlAttribute = MultipleChoiceControlAttribute;
-//# sourceMappingURL=MultipleChoiceControlAttribute.js.map
+exports.CheckboxControlAttribute = CheckboxControlAttribute;
+//# sourceMappingURL=CheckboxControlAttribute.js.map

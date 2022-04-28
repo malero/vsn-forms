@@ -70,8 +70,8 @@ var TextControlAttribute = /** @class */ (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (!this.formScope.has(this.key))
-                            this.formScope.set(this.key, this.tag.value);
+                        this.ensureProperty();
+                        this.formScope.set(this.key, this.tag.value);
                         return [4 /*yield*/, _super.prototype.extract.call(this)];
                     case 1:
                         _a.sent();

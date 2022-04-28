@@ -1,5 +1,5 @@
 import {Registry, Controller, Scope, Tag, property, Property} from "vsn";
-import {MessageList} from "vsn/dist/MessageList";
+import {MessageList} from "vsn";
 
 @Registry.class('Form')
 export class Form extends Controller {
@@ -15,20 +15,6 @@ export class Form extends Controller {
         }
 
         return this.errors.isEmpty;
-    }
-
-    get data() {
-        const data = {};
-        for (const key of this.keys) {
-            const prop = this.getProperty(key);
-            if (prop instanceof Property)
-                data[key] = prop.value;
-        }
-        return data;
-    }
-
-    getData() {
-        return this.data;
     }
 
     init(scope: Scope, tag: Tag, element: HTMLElement) {

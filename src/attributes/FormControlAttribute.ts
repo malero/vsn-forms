@@ -1,7 +1,8 @@
 import {Registry, Attribute, Tag} from "vsn";
-import {SingleChoiceControlAttribute} from "./SingleChoiceControlAttribute";
-import {MultipleChoiceControlAttribute} from "./MultipleChoiceControlAttribute";
 import {TextControlAttribute} from "./TextFormControl";
+import {RadioControlAttribute} from "./RadioControlAttribute";
+import {CheckboxControlAttribute} from "./CheckboxControlAttribute";
+import {SelectControlAttribute} from "./SelectControlAttribute";
 
 @Registry.attribute('vsn-form-control')
 export abstract class FormControlAttribute extends Attribute {
@@ -10,14 +11,11 @@ export abstract class FormControlAttribute extends Attribute {
         const type = tag.element.getAttribute('type')?.toLowerCase();
         if (tagName === 'input') {
             if (type === 'radio')
-                return new SingleChoiceControlAttribute(tag, attr);
+                return new RadioControlAttribute(tag, attr);
             if (type === 'checkbox')
-                return new MultipleChoiceControlAttribute(tag, attr);
-        } else if (tagName === 'select') {
-            if (tag.getRawAttributeValue('multiple') !== null)
-                return new MultipleChoiceControlAttribute(tag, attr);
-            else
-                return new SingleChoiceControlAttribute(tag, attr);
+                return new CheckboxControlAttribute(tag, attr);
+        } else if (tag.isSelect) {
+            return new SelectControlAttribute(tag, attr);
         }
 
         return new TextControlAttribute(tag, attr);

@@ -1,4 +1,5 @@
-import {Attribute, Registry, Scope} from "vsn";
+import {Attribute, Property, Registry, Scope} from "vsn";
+import {IPropertyConfig} from "vsn/dist/Scope/properties/Property";
 
 export abstract class FormControlAttributeAbstract extends Attribute {
     public static readonly canDefer: boolean = false;
@@ -47,5 +48,16 @@ export abstract class FormControlAttributeAbstract extends Attribute {
 
     get value() {
         return this.cast(this.tag.value);
+    }
+
+    ensureProperty(propertyType: any = Property, config: IPropertyConfig = {}) {
+        if (!this.formScope.data.hasProperty(this.key)) {
+            if (!config.tags) config.tags = [];
+            if (!config.tags.includes('formData')) config.tags.push('formData');
+            this.formScope.data.createProperty(this.key, propertyType, config);
+        } else {
+            const property = this.formScope.data.getProperty(this.key);
+            property.addTag('formData');
+        }
     }
 }

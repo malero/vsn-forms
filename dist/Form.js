@@ -23,12 +23,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Form = void 0;
 var vsn_1 = require("vsn");
-var MessageList_1 = require("vsn/dist/MessageList");
+var vsn_2 = require("vsn");
 var Form = /** @class */ (function (_super) {
     __extends(Form, _super);
     function Form() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.errors = new MessageList_1.MessageList();
+        _this.errors = new vsn_2.MessageList();
         return _this;
     }
     Form.prototype.validate = function () {
@@ -40,23 +40,6 @@ var Form = /** @class */ (function (_super) {
                 this.errors.add(key, prop.validate());
         }
         return this.errors.isEmpty;
-    };
-    Object.defineProperty(Form.prototype, "data", {
-        get: function () {
-            var data = {};
-            for (var _i = 0, _a = this.keys; _i < _a.length; _i++) {
-                var key = _a[_i];
-                var prop = this.getProperty(key);
-                if (prop instanceof vsn_1.Property)
-                    data[key] = prop.value;
-            }
-            return data;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Form.prototype.getData = function () {
-        return this.data;
     };
     Form.prototype.init = function (scope, tag, element) {
         _super.prototype.init.call(this, scope, tag, element);

@@ -12,7 +12,7 @@ class TestFormController extends Form {
 
 
 describe('FormControlAttribute', () => {
-    it("should work with a radio input", async () => {
+    it("should do input things", async () => {
         document.body.innerHTML = `
             <form id="test-form" vsn-form:form="TestFormController">
                 <label>
@@ -23,7 +23,6 @@ describe('FormControlAttribute', () => {
                     <input id="radio-2" type="radio" name="test" value="2" vsn-form-control>
                     Testing 2
                 </label>
-                
                 
                 <label>
                     <input id="auto-radio-1" type="radio" name="auto-radio" value="1" vsn-form-control checked>
@@ -50,8 +49,8 @@ describe('FormControlAttribute', () => {
         const deferred = SimplePromise.defer();
         dom.once('built', async () => {
             const form = await dom.eval('form');
-            const formData = form.getData();
-            console.log(formData);
+            const formData = form.getData('formData');
+            console.log('radioFormData', formData);
             expect(formData?.test).toBe(1);
             expect(formData['test-input']).toBe('notTest');
             expect((await dom.eval('#radio-1')).checked).toBe(true);
@@ -71,11 +70,11 @@ describe('FormControlAttribute', () => {
         await deferred.promise;
     });
 
-    it("should work with select", async () => {
+    it("should work with single-value select", async () => {
         document.body.innerHTML = `
             <form id="select-form" vsn-form:form>
-                <select id="select-1" vsn-set:form.test="1|integer" name="test" vsn-form-control>
-                    <option value="1">Testing 1</option>
+                <select id="select-1" name="test" vsn-form-control>
+                    <option value="1" selected>Testing 1</option>
                     <option value="2">Testing 2</option>
                 </select>
             </form>
@@ -84,10 +83,33 @@ describe('FormControlAttribute', () => {
         const deferred = SimplePromise.defer();
         dom.once('built', async () => {
             const form = await dom.eval('form');
-            const formData = form.getData();
+            const formData = form.getData('formData');
             console.log(formData);
-            expect(formData?.test).toBe(1);
+            expect(formData?.test.length).toBe(1);
 
+            deferred.resolve();
+        });
+
+        await deferred.promise;
+    });
+
+    it("should work with multi-value select", async () => {
+        document.body.innerHTML = `
+            <form id="select-form" vsn-form:form>
+                <select id="select-1" name="test" vsn-form-control multiple>
+                    <option value="1" selected>Testing 1</option>
+                    <option value="2" selected>Testing 2</option>
+                </select>
+            </form>
+        `;
+        const dom = new DOM(document);
+        const deferred = SimplePromise.defer();
+        dom.once('built', async () => {
+            const form = await dom.eval('form');
+            const formData = form.getData('formData');
+            console.log(formData);
+            expect(formData?.test.length).toBe(2);
+            expect(Array.from(formData?.test)).toEqual(['1', '2']);
             deferred.resolve();
         });
 

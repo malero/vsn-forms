@@ -3,11 +3,13 @@ import {FormControlAttributeAbstract} from "./BaseFormControlAttribute";
 
 
 @Registry.attribute('vsn-radio-control')
-export class SingleChoiceControlAttribute extends FormControlAttributeAbstract {
+export class RadioControlAttribute extends FormControlAttributeAbstract {
     public async extract() {
+        this.ensureProperty();
         if (this.tag.checked)
             await this.handleEvent(null);
         await super.extract();
+        await this.evaluate();
     }
 
     public async connect() {
@@ -27,7 +29,6 @@ export class SingleChoiceControlAttribute extends FormControlAttributeAbstract {
 
     async checkSelected() {
         const scopeValue = this.formScope.get(this.key);
-        console.log('checked', scopeValue, this.value, scopeValue === this.value);
         this.tag.checked = scopeValue === this.value;
     }
 }

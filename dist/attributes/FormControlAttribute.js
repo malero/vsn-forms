@@ -23,9 +23,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FormControlAttribute = void 0;
 var vsn_1 = require("vsn");
-var SingleChoiceControlAttribute_1 = require("./SingleChoiceControlAttribute");
-var MultipleChoiceControlAttribute_1 = require("./MultipleChoiceControlAttribute");
 var TextFormControl_1 = require("./TextFormControl");
+var RadioControlAttribute_1 = require("./RadioControlAttribute");
+var CheckboxControlAttribute_1 = require("./CheckboxControlAttribute");
+var SelectControlAttribute_1 = require("./SelectControlAttribute");
 var FormControlAttribute = /** @class */ (function (_super) {
     __extends(FormControlAttribute, _super);
     function FormControlAttribute() {
@@ -37,15 +38,12 @@ var FormControlAttribute = /** @class */ (function (_super) {
         var type = (_a = tag.element.getAttribute('type')) === null || _a === void 0 ? void 0 : _a.toLowerCase();
         if (tagName === 'input') {
             if (type === 'radio')
-                return new SingleChoiceControlAttribute_1.SingleChoiceControlAttribute(tag, attr);
+                return new RadioControlAttribute_1.RadioControlAttribute(tag, attr);
             if (type === 'checkbox')
-                return new MultipleChoiceControlAttribute_1.MultipleChoiceControlAttribute(tag, attr);
+                return new CheckboxControlAttribute_1.CheckboxControlAttribute(tag, attr);
         }
-        else if (tagName === 'select') {
-            if (tag.getRawAttributeValue('multiple') !== null)
-                return new MultipleChoiceControlAttribute_1.MultipleChoiceControlAttribute(tag, attr);
-            else
-                return new SingleChoiceControlAttribute_1.SingleChoiceControlAttribute(tag, attr);
+        else if (tag.isSelect) {
+            return new SelectControlAttribute_1.SelectControlAttribute(tag, attr);
         }
         return new TextFormControl_1.TextControlAttribute(tag, attr);
     };

@@ -14,6 +14,12 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -51,106 +57,102 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FormControlAttributeAbstract = void 0;
+exports.SelectControlAttribute = void 0;
 var vsn_1 = require("vsn");
-var FormControlAttributeAbstract = /** @class */ (function (_super) {
-    __extends(FormControlAttributeAbstract, _super);
-    function FormControlAttributeAbstract() {
+var BaseFormControlAttribute_1 = require("./BaseFormControlAttribute");
+var SelectControlAttribute = /** @class */ (function (_super) {
+    __extends(SelectControlAttribute, _super);
+    function SelectControlAttribute() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    FormControlAttributeAbstract.prototype.setup = function () {
+    SelectControlAttribute.prototype.extract = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var parent;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.key = this.getAttributeBinding(this.tag.getRawAttributeValue('name'));
-                        parent = this.tag.findAncestorByAttribute('vsn-form');
-                        if (!parent) {
-                            throw new Error('FormControlAttribute must be used inside a form with a vsn-form attribute.');
+                        if (this.tag.isMultipleSelect) {
+                            this.ensureProperty(vsn_1.ArrayProperty);
                         }
-                        this.formScope = parent.scope;
-                        return [4 /*yield*/, _super.prototype.setup.call(this)];
+                        else {
+                            this.ensureProperty();
+                        }
+                        return [4 /*yield*/, _super.prototype.extract.call(this)];
                     case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.handleEvent(null)];
+                    case 2:
                         _a.sent();
                         return [2 /*return*/];
                 }
             });
         });
     };
-    Object.defineProperty(FormControlAttributeAbstract.prototype, "valueType", {
-        get: function () {
-            try {
-                return this.formScope.getType(this.key);
-            }
-            catch (e) {
-                return 'any';
-            }
-        },
-        enumerable: false,
-        configurable: true
-    });
-    FormControlAttributeAbstract.prototype.connect = function () {
+    SelectControlAttribute.prototype.connect = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.tag.addEventHandler('change', this.getAttributeModifiers(), this.handleEvent.bind(this));
-                        return [4 /*yield*/, _super.prototype.connect.call(this)];
+                        this.formScope.on("change:" + this.key, this.checkSelected, this);
+                        return [4 /*yield*/, this.checkSelected()];
                     case 1:
+                        _a.sent();
+                        return [4 /*yield*/, _super.prototype.connect.call(this)];
+                    case 2:
                         _a.sent();
                         return [2 /*return*/];
                 }
             });
         });
     };
-    FormControlAttributeAbstract.prototype.extract = function () {
+    SelectControlAttribute.prototype.evaluate = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var valueType;
             return __generator(this, function (_a) {
-                valueType = this.getAttributeValue();
-                if (valueType)
-                    this.formScope.setType(this.key, valueType);
-                return [2 /*return*/, _super.prototype.extract.call(this)];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.checkSelected()];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, _super.prototype.evaluate.call(this)];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
             });
         });
     };
-    FormControlAttributeAbstract.prototype.handleEvent = function (e) {
+    SelectControlAttribute.prototype.handleEvent = function (e) {
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                this.formScope.set(this.key, this.tag.value);
+            var values, _i, _a, value;
+            return __generator(this, function (_b) {
+                if (this.tag.isMultipleSelect) {
+                    values = this.formScope.get(this.key);
+                    for (_i = 0, _a = this.tag.value; _i < _a.length; _i++) {
+                        value = _a[_i];
+                        if (values.indexOf(value) === -1) {
+                            values.push(value);
+                        }
+                        else {
+                            values.remove(value);
+                        }
+                    }
+                }
+                else {
+                    this.formScope.set(this.key, this.tag.value);
+                }
                 return [2 /*return*/];
             });
         });
     };
-    FormControlAttributeAbstract.prototype.cast = function (value) {
-        var castValue = vsn_1.Registry.instance.types.getSynchronous(this.valueType);
-        return castValue ? castValue(value) : value;
+    SelectControlAttribute.prototype.checkSelected = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/];
+            });
+        });
     };
-    Object.defineProperty(FormControlAttributeAbstract.prototype, "value", {
-        get: function () {
-            return this.cast(this.tag.value);
-        },
-        enumerable: false,
-        configurable: true
-    });
-    FormControlAttributeAbstract.prototype.ensureProperty = function (propertyType, config) {
-        if (propertyType === void 0) { propertyType = vsn_1.Property; }
-        if (config === void 0) { config = {}; }
-        if (!this.formScope.data.hasProperty(this.key)) {
-            if (!config.tags)
-                config.tags = [];
-            if (!config.tags.includes('formData'))
-                config.tags.push('formData');
-            this.formScope.data.createProperty(this.key, propertyType, config);
-        }
-        else {
-            var property = this.formScope.data.getProperty(this.key);
-            property.addTag('formData');
-        }
-    };
-    FormControlAttributeAbstract.canDefer = false;
-    return FormControlAttributeAbstract;
-}(vsn_1.Attribute));
-exports.FormControlAttributeAbstract = FormControlAttributeAbstract;
-//# sourceMappingURL=BaseFormControlAttribute.js.map
+    SelectControlAttribute = __decorate([
+        vsn_1.Registry.attribute('vsn-select-control')
+    ], SelectControlAttribute);
+    return SelectControlAttribute;
+}(BaseFormControlAttribute_1.FormControlAttributeAbstract));
+exports.SelectControlAttribute = SelectControlAttribute;
+//# sourceMappingURL=SelectControlAttribute.js.map

@@ -1,4 +1,5 @@
 import { Attribute, Scope } from "vsn";
+import { IPropertyConfig } from "vsn/dist/Scope/properties/Property";
 export declare abstract class FormControlAttributeAbstract extends Attribute {
     static readonly canDefer: boolean;
     protected key?: string;
@@ -10,4 +11,5 @@ export declare abstract class FormControlAttributeAbstract extends Attribute {
     handleEvent(e: any): Promise<void>;
     cast(value: any): any;
     get value(): any;
+    ensureProperty(propertyType?: any, config?: IPropertyConfig): void;
 }

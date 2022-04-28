@@ -57,19 +57,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SingleChoiceControlAttribute = void 0;
+exports.RadioControlAttribute = void 0;
 var vsn_1 = require("vsn");
 var BaseFormControlAttribute_1 = require("./BaseFormControlAttribute");
-var SingleChoiceControlAttribute = /** @class */ (function (_super) {
-    __extends(SingleChoiceControlAttribute, _super);
-    function SingleChoiceControlAttribute() {
+var RadioControlAttribute = /** @class */ (function (_super) {
+    __extends(RadioControlAttribute, _super);
+    function RadioControlAttribute() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    SingleChoiceControlAttribute.prototype.extract = function () {
+    RadioControlAttribute.prototype.extract = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        this.ensureProperty();
                         if (!this.tag.checked) return [3 /*break*/, 2];
                         return [4 /*yield*/, this.handleEvent(null)];
                     case 1:
@@ -78,12 +79,15 @@ var SingleChoiceControlAttribute = /** @class */ (function (_super) {
                     case 2: return [4 /*yield*/, _super.prototype.extract.call(this)];
                     case 3:
                         _a.sent();
+                        return [4 /*yield*/, this.evaluate()];
+                    case 4:
+                        _a.sent();
                         return [2 /*return*/];
                 }
             });
         });
     };
-    SingleChoiceControlAttribute.prototype.connect = function () {
+    RadioControlAttribute.prototype.connect = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -100,7 +104,7 @@ var SingleChoiceControlAttribute = /** @class */ (function (_super) {
             });
         });
     };
-    SingleChoiceControlAttribute.prototype.evaluate = function () {
+    RadioControlAttribute.prototype.evaluate = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -115,7 +119,7 @@ var SingleChoiceControlAttribute = /** @class */ (function (_super) {
             });
         });
     };
-    SingleChoiceControlAttribute.prototype.handleEvent = function (e) {
+    RadioControlAttribute.prototype.handleEvent = function (e) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 this.formScope.set(this.key, this.value);
@@ -123,21 +127,20 @@ var SingleChoiceControlAttribute = /** @class */ (function (_super) {
             });
         });
     };
-    SingleChoiceControlAttribute.prototype.checkSelected = function () {
+    RadioControlAttribute.prototype.checkSelected = function () {
         return __awaiter(this, void 0, void 0, function () {
             var scopeValue;
             return __generator(this, function (_a) {
                 scopeValue = this.formScope.get(this.key);
-                console.log('checked', scopeValue, this.value, scopeValue === this.value);
                 this.tag.checked = scopeValue === this.value;
                 return [2 /*return*/];
             });
         });
     };
-    SingleChoiceControlAttribute = __decorate([
+    RadioControlAttribute = __decorate([
         vsn_1.Registry.attribute('vsn-radio-control')
-    ], SingleChoiceControlAttribute);
-    return SingleChoiceControlAttribute;
+    ], RadioControlAttribute);
+    return RadioControlAttribute;
 }(BaseFormControlAttribute_1.FormControlAttributeAbstract));
-exports.SingleChoiceControlAttribute = SingleChoiceControlAttribute;
-//# sourceMappingURL=SingleChoiceControlAttribute.js.map
+exports.RadioControlAttribute = RadioControlAttribute;
+//# sourceMappingURL=RadioControlAttribute.js.map
