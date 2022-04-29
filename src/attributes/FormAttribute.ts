@@ -1,5 +1,6 @@
 import {Registry} from "vsn";
 import {ClassConstructor} from "vsn/dist/attributes/ClassConstructor";
+import {Form} from "../Form";
 
 @Registry.attribute('vsn-form')
 export class FormAttribute extends ClassConstructor {
@@ -11,8 +12,10 @@ export class FormAttribute extends ClassConstructor {
         this.tag.addEventHandler('submit', [], this.handleEvent.bind(this));
     };
 
-    public handleEvent(event: Event) {
+    async handleEvent(event: Event) {
         if (event)
             event.preventDefault();
+        if (this.tag.controller instanceof Form)
+            await this.tag.controller.submit(event);
     };
 }

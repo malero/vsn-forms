@@ -60,6 +60,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FormAttribute = void 0;
 var vsn_1 = require("vsn");
 var ClassConstructor_1 = require("vsn/dist/attributes/ClassConstructor");
+var Form_1 = require("../Form");
 var FormAttribute = /** @class */ (function (_super) {
     __extends(FormAttribute, _super);
     function FormAttribute() {
@@ -82,8 +83,21 @@ var FormAttribute = /** @class */ (function (_super) {
     };
     ;
     FormAttribute.prototype.handleEvent = function (event) {
-        if (event)
-            event.preventDefault();
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (event)
+                            event.preventDefault();
+                        if (!(this.tag.controller instanceof Form_1.Form)) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.tag.controller.submit(event)];
+                    case 1:
+                        _a.sent();
+                        _a.label = 2;
+                    case 2: return [2 /*return*/];
+                }
+            });
+        });
     };
     ;
     FormAttribute = __decorate([
