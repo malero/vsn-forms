@@ -78,7 +78,7 @@ var Form = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             var _i, _a, key, prop;
             return __generator(this, function (_b) {
-                this.errors.clear();
+                this.errors.reset();
                 for (_i = 0, _a = this.getKeys('formData'); _i < _a.length; _i++) {
                     key = _a[_i];
                     prop = this.getProperty(key);

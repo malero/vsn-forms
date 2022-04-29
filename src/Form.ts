@@ -11,7 +11,7 @@ export class Form extends Controller {
     }
 
     async validate() {
-        this.errors.clear();
+        this.errors.reset();
         for (const key of this.getKeys('formData')) {
             const prop = this.getProperty(key);
             if (prop instanceof Property)

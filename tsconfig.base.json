@@ -10,6 +10,9 @@
     "strict": false,
     "experimentalDecorators": true
   },
+  "types": [
+    "vsn"
+  ],
   "exclude": [
     "node_modules"
   ]
