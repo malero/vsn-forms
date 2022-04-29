@@ -26,19 +26,15 @@ export class CheckboxControlAttribute extends FormControlAttributeAbstract {
         const values = this.formScope.get(this.key);
         if (values && this.tag.value !== undefined) {
             if (this.tag.checked) {
-                console.log('checked', this.tag.value);
                 values.push(this.value);
             } else {
-                console.log('unchecked', this.tag.value);
                 values.remove(this.value);
             }
         }
-        console.log(values);
     }
 
     async checkSelected() {
         const scopeValue = this.formScope.get(this.key);
-        console.log('checkSelected', scopeValue, this.value);
         this.tag.checked = scopeValue.indexOf(this.value) >= 0;
     }
 }

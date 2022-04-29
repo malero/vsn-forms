@@ -121,15 +121,12 @@ var CheckboxControlAttribute = /** @class */ (function (_super) {
                 values = this.formScope.get(this.key);
                 if (values && this.tag.value !== undefined) {
                     if (this.tag.checked) {
-                        console.log('checked', this.tag.value);
                         values.push(this.value);
                     }
                     else {
-                        console.log('unchecked', this.tag.value);
                         values.remove(this.value);
                     }
                 }
-                console.log(values);
                 return [2 /*return*/];
             });
         });
@@ -139,7 +136,6 @@ var CheckboxControlAttribute = /** @class */ (function (_super) {
             var scopeValue;
             return __generator(this, function (_a) {
                 scopeValue = this.formScope.get(this.key);
-                console.log('checkSelected', scopeValue, this.value);
                 this.tag.checked = scopeValue.indexOf(this.value) >= 0;
                 return [2 /*return*/];
             });
