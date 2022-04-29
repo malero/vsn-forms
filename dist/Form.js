@@ -65,6 +65,8 @@ var Form = /** @class */ (function (_super) {
     function Form() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.errors = new vsn_2.MessageList();
+        _this.hasErrors = false;
+        _this.processing = false;
         return _this;
     }
     Form.prototype.clean = function () {
@@ -79,6 +81,7 @@ var Form = /** @class */ (function (_super) {
             var _i, _a, key, prop;
             return __generator(this, function (_b) {
                 this.errors.reset();
+                this.hasErrors = false;
                 for (_i = 0, _a = this.getKeys('formData'); _i < _a.length; _i++) {
                     key = _a[_i];
                     prop = this.getProperty(key);
@@ -95,6 +98,7 @@ var Form = /** @class */ (function (_super) {
             return __generator(this, function (_e) {
                 switch (_e.label) {
                     case 0:
+                        this.processing = true;
                         if (event)
                             event.preventDefault();
                         return [4 /*yield*/, this.validate()];
@@ -138,8 +142,8 @@ var Form = /** @class */ (function (_super) {
                         _i++;
                         return [3 /*break*/, 6];
                     case 11:
-                        if (!this.errors.length) return [3 /*break*/, 13];
-                        return [4 /*yield*/, this.this.formValid(formData)];
+                        if (!(this.errors.length === 0)) return [3 /*break*/, 13];
+                        return [4 /*yield*/, this.formValid(formData)];
                     case 12:
                         _e.sent();
                         return [3 /*break*/, 15];
@@ -147,7 +151,9 @@ var Form = /** @class */ (function (_super) {
                     case 14:
                         _e.sent();
                         _e.label = 15;
-                    case 15: return [2 /*return*/];
+                    case 15:
+                        this.processing = false;
+                        return [2 /*return*/];
                 }
             });
         });
@@ -165,6 +171,12 @@ var Form = /** @class */ (function (_super) {
     __decorate([
         vsn_1.property()
     ], Form.prototype, "errors", void 0);
+    __decorate([
+        vsn_1.property()
+    ], Form.prototype, "hasErrors", void 0);
+    __decorate([
+        vsn_1.property()
+    ], Form.prototype, "processing", void 0);
     Form = __decorate([
         vsn_1.Registry.class('Form')
     ], Form);

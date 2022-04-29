@@ -6,12 +6,19 @@ export class Form extends Controller {
     @property()
     errors: MessageList = new MessageList();
 
+    @property()
+    hasErrors: boolean = false;
+
+    @property()
+    processing: boolean = false;
+
     async clean() {
         return this.getData('formData');
     }
 
     async validate() {
         this.errors.reset();
+        this.hasErrors = false;
         for (const key of this.getKeys('formData')) {
             const prop = this.getProperty(key);
             if (prop instanceof Property)
@@ -22,6 +29,7 @@ export class Form extends Controller {
     }
 
     async submit(event: Event) {
+        this.processing = true;
         if (event)
             event.preventDefault();
 
@@ -46,11 +54,12 @@ export class Form extends Controller {
 
         }
 
-        if (this.errors.length) {
-            await this.this.formValid(formData);
+        if (this.errors.length === 0) {
+            await this.formValid(formData);
         } else {
             await this.formInvalid(this.errors);
         }
+        this.processing = false;
     }
 
     async formValid(formData: any) {}
