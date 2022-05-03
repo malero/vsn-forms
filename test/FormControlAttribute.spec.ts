@@ -50,7 +50,6 @@ describe('FormControlAttribute', () => {
         dom.once('built', async () => {
             const form = await dom.eval('form');
             const formData = form.getData('formData');
-            console.log('radioFormData', formData);
             expect(formData?.test).toBe(1);
             expect(formData['test-input']).toBe('notTest');
             expect((await dom.eval('#radio-1')).checked).toBe(true);
@@ -84,7 +83,7 @@ describe('FormControlAttribute', () => {
         dom.once('built', async () => {
             const form = await dom.eval('form');
             const formData = form.getData('formData');
-            console.log(formData);
+
             expect(formData?.test.length).toBe(1);
 
             deferred.resolve();
@@ -107,9 +106,29 @@ describe('FormControlAttribute', () => {
         dom.once('built', async () => {
             const form = await dom.eval('form');
             const formData = form.getData('formData');
-            console.log(formData);
+
             expect(formData?.test.length).toBe(2);
             expect(Array.from(formData?.test)).toEqual(['1', '2']);
+            deferred.resolve();
+        });
+
+        await deferred.promise;
+    });
+
+    it("should be required if marked as required", async () => {
+        document.body.innerHTML = `
+            <form id="select-form" vsn-form:form>
+                <input type="text" name="test-required" vsn-form-control required />
+            </form>
+        `;
+        const dom = new DOM(document);
+        const deferred = SimplePromise.defer();
+        dom.once('built', async () => {
+            const form = await dom.eval('form');
+            const formData = form.getData('formData');
+            console.log(formData);
+            form.validate();
+            expect(form.hasErrors).toBe(true);
             deferred.resolve();
         });
 

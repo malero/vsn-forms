@@ -88,7 +88,8 @@ var Form = /** @class */ (function (_super) {
                     if (prop instanceof vsn_1.Property)
                         this.errors.add(key, prop.validate());
                 }
-                return [2 /*return*/, this.errors.isEmpty];
+                this.hasErrors = this.errors.isEmpty;
+                return [2 /*return*/, this.hasErrors];
             });
         });
     };

@@ -24,8 +24,8 @@ export class Form extends Controller {
             if (prop instanceof Property)
                 this.errors.add(key, prop.validate());
         }
-
-        return this.errors.isEmpty;
+        this.hasErrors = this.errors.isEmpty;
+        return this.hasErrors;
     }
 
     async submit(event: Event) {

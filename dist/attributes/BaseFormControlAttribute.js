@@ -111,6 +111,8 @@ var FormControlAttributeAbstract = /** @class */ (function (_super) {
                 valueType = this.getAttributeValue();
                 if (valueType)
                     this.formScope.setType(this.key, valueType);
+                if (this.tag.hasRawAttribute('required'))
+                    this.formProperty.addValidator('required');
                 return [2 /*return*/, _super.prototype.extract.call(this)];
             });
         });
@@ -145,10 +147,16 @@ var FormControlAttributeAbstract = /** @class */ (function (_super) {
             this.formScope.data.createProperty(this.key, propertyType, config);
         }
         else {
-            var property = this.formScope.data.getProperty(this.key);
-            property.addTag('formData');
+            this.formProperty.addTag('formData');
         }
     };
+    Object.defineProperty(FormControlAttributeAbstract.prototype, "formProperty", {
+        get: function () {
+            return this.formScope.data.getProperty(this.key);
+        },
+        enumerable: false,
+        configurable: true
+    });
     FormControlAttributeAbstract.canDefer = false;
     return FormControlAttributeAbstract;
 }(vsn_1.Attribute));

@@ -34,6 +34,8 @@ export abstract class FormControlAttributeAbstract extends Attribute {
         const valueType = this.getAttributeValue();
         if (valueType)
             this.formScope.setType(this.key, valueType);
+        if (this.tag.hasRawAttribute('required'))
+            this.formProperty.addValidator('required');
         return super.extract();
     }
 
@@ -56,8 +58,11 @@ export abstract class FormControlAttributeAbstract extends Attribute {
             if (!config.tags.includes('formData')) config.tags.push('formData');
             this.formScope.data.createProperty(this.key, propertyType, config);
         } else {
-            const property = this.formScope.data.getProperty(this.key);
-            property.addTag('formData');
+            this.formProperty.addTag('formData');
         }
+    }
+
+    get formProperty() {
+        return this.formScope.data.getProperty(this.key);
     }
 }
