@@ -54,11 +54,11 @@ export abstract class FormControlAttributeAbstract extends Attribute {
 
     ensureProperty(propertyType: any = Property, config: IPropertyConfig = {}) {
         if (!this.formScope.data.hasProperty(this.key)) {
-            if (!config.tags) config.tags = [];
-            if (!config.tags.includes('formData')) config.tags.push('formData');
+            if (!config.labels) config.labels = [];
+            if (config.labels.indexOf('formData') < 0) config.labels.push('formData');
             this.formScope.data.createProperty(this.key, propertyType, config);
         } else {
-            this.formProperty.addTag('formData');
+            this.formProperty.addLabel('formData');
         }
     }
 

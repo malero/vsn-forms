@@ -11,7 +11,7 @@ describe('Form', () => {
         const dom = new DOM(document);
         const deferred = SimplePromise.defer();
         dom.once('built', async () => {
-            const form = await dom.eval('form');
+            const form = await dom.exec('form');
             const formData = form.getData('formData');
             expect(formData).toEqual({
                 'text-1': 'text-1',

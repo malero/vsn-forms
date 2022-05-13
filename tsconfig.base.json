@@ -2,7 +2,10 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
-    "lib": [ "es6", "dom"],
+    "lib": [
+      "es6",
+      "dom"
+    ],
     "declaration": true,
     "sourceMap": true,
     "rootDir": "./src",
@@ -10,9 +13,6 @@
     "strict": false,
     "experimentalDecorators": true
   },
-  "types": [
-    "vsn"
-  ],
   "exclude": [
     "node_modules"
   ]

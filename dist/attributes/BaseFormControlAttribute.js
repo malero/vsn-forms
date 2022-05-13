@@ -140,14 +140,14 @@ var FormControlAttributeAbstract = /** @class */ (function (_super) {
         if (propertyType === void 0) { propertyType = vsn_1.Property; }
         if (config === void 0) { config = {}; }
         if (!this.formScope.data.hasProperty(this.key)) {
-            if (!config.tags)
-                config.tags = [];
-            if (!config.tags.includes('formData'))
-                config.tags.push('formData');
+            if (!config.labels)
+                config.labels = [];
+            if (config.labels.indexOf('formData') < 0)
+                config.labels.push('formData');
             this.formScope.data.createProperty(this.key, propertyType, config);
         }
         else {
-            this.formProperty.addTag('formData');
+            this.formProperty.addLabel('formData');
         }
     };
     Object.defineProperty(FormControlAttributeAbstract.prototype, "formProperty", {

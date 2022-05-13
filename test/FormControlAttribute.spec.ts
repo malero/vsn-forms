@@ -48,18 +48,19 @@ describe('FormControlAttribute', () => {
         const dom = new DOM(document);
         const deferred = SimplePromise.defer();
         dom.once('built', async () => {
-            const form = await dom.eval('form');
+            const form = await dom.exec('form');
             const formData = form.getData('formData');
+            console.log('formData', formData);
             expect(formData?.test).toBe(1);
             expect(formData['test-input']).toBe('notTest');
-            expect((await dom.eval('#radio-1')).checked).toBe(true);
-            expect((await dom.eval('#radio-2')).checked).toBe(false);
+            expect((await dom.exec('#radio-1')).checked).toBe(true);
+            expect((await dom.exec('#radio-2')).checked).toBe(false);
 
             expect(formData['auto-radio']).toBe('1');
-            expect((await dom.eval('#auto-radio-1')).checked).toBe(true);
-            expect((await dom.eval('#auto-radio-2')).checked).toBe(false);
+            expect((await dom.exec('#auto-radio-1')).checked).toBe(true);
+            expect((await dom.exec('#auto-radio-2')).checked).toBe(false);
 
-            expect((await dom.eval('#checkbox-1')).checked).toBe(true);
+            expect((await dom.exec('#checkbox-1')).checked).toBe(true);
             expect(formData['test-checkbox'].length).toBe(1);
             expect(formData['test-checkbox'][0]).toBe(1);
 
@@ -81,7 +82,7 @@ describe('FormControlAttribute', () => {
         const dom = new DOM(document);
         const deferred = SimplePromise.defer();
         dom.once('built', async () => {
-            const form = await dom.eval('form');
+            const form = await dom.exec('form');
             const formData = form.getData('formData');
 
             expect(formData?.test.length).toBe(1);
@@ -104,7 +105,7 @@ describe('FormControlAttribute', () => {
         const dom = new DOM(document);
         const deferred = SimplePromise.defer();
         dom.once('built', async () => {
-            const form = await dom.eval('form');
+            const form = await dom.exec('form');
             const formData = form.getData('formData');
 
             expect(formData?.test.length).toBe(2);
@@ -124,7 +125,7 @@ describe('FormControlAttribute', () => {
         const dom = new DOM(document);
         const deferred = SimplePromise.defer();
         dom.once('built', async () => {
-            const form = await dom.eval('form');
+            const form = await dom.exec('form');
             const formData = form.getData('formData');
             console.log(formData);
             form.validate();

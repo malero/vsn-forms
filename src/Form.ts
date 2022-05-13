@@ -63,6 +63,5 @@ export class Form extends Controller {
     }
 
     async formValid(formData: any) {}
-
     async formInvalid(errors: MessageList) {}
 }
