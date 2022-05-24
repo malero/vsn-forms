@@ -1,6 +1,6 @@
 {
   "name": "vsn-forms",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Forms for VSN",
   "keywords": [
     "framework",
@@ -17,7 +17,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "vsn": "^0.1.51"
+    "vsn": "^0.1.62"
   },
   "devDependencies": {
     "@types/jasmine": "^3.6.10",

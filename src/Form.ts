@@ -1,7 +1,7 @@
 import {Registry, Controller, property, Property} from "vsn";
 import {MessageList} from "vsn";
 
-@Registry.class('Form')
+@Registry.controller('Form')
 export class Form extends Controller {
     @property()
     errors: MessageList = new MessageList();

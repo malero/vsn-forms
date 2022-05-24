@@ -1,5 +1,5 @@
-import { ClassConstructor } from "vsn/dist/attributes/ClassConstructor";
-export declare class FormAttribute extends ClassConstructor {
+import { ControllerAttribute } from "vsn";
+export declare class FormAttribute extends ControllerAttribute {
     protected defaultClassName: string;
     connect(): Promise<void>;
     handleEvent(event: Event): Promise<void>;

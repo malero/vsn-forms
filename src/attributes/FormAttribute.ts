@@ -1,9 +1,8 @@
-import {Registry} from "vsn";
-import {ClassConstructor} from "vsn/dist/attributes/ClassConstructor";
+import {ControllerAttribute, Registry} from "vsn";
 import {Form} from "../Form";
 
 @Registry.attribute('vsn-form')
-export class FormAttribute extends ClassConstructor {
+export class FormAttribute extends ControllerAttribute {
     protected defaultClassName: string = 'Form';
 
     public async connect() {

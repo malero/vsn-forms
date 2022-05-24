@@ -179,7 +179,7 @@ var Form = /** @class */ (function (_super) {
         vsn_1.property()
     ], Form.prototype, "processing", void 0);
     Form = __decorate([
-        vsn_1.Registry.class('Form')
+        vsn_1.Registry.controller('Form')
     ], Form);
     return Form;
 }(vsn_1.Controller));

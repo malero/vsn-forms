@@ -59,7 +59,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FormAttribute = void 0;
 var vsn_1 = require("vsn");
-var ClassConstructor_1 = require("vsn/dist/attributes/ClassConstructor");
 var Form_1 = require("../Form");
 var FormAttribute = /** @class */ (function (_super) {
     __extends(FormAttribute, _super);
@@ -104,6 +103,6 @@ var FormAttribute = /** @class */ (function (_super) {
         vsn_1.Registry.attribute('vsn-form')
     ], FormAttribute);
     return FormAttribute;
-}(ClassConstructor_1.ClassConstructor));
+}(vsn_1.ControllerAttribute));
 exports.FormAttribute = FormAttribute;
 //# sourceMappingURL=FormAttribute.js.map
